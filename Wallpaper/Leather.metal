@@ -8,6 +8,8 @@
 #include <metal_stdlib>
 using namespace metal;
 
+// MARK: - Base grain
+
 float2 hash(float2 p) {
     p = float2(dot(p, float2(127.1,311.7)), dot(p,float2(269.5,183.3)));
     return fract(p);
@@ -51,7 +53,7 @@ float3 voronoi(float2 x) {
     return float3( sqrt(m.x), m.y*m.z, md );
 }
 
-// NDJ
+// MARK: - Lighting & shadows
 
 struct Vibe { float3 a0, a1, b1, a2, b2; };
 
@@ -85,14 +87,6 @@ float3 fourierApply(float3 n, Vibe vibe){
     return vibe.a0 + vibe.a1 * g1.xxx + vibe.b1 * g1.yyy + vibe.a2 * g2.xxx + vibe.b2 * g2.yyy;
 }
 
-float3 sphereBump(float2 uv){
-    float2 uv2 = 2.0*fract(10.0*uv) - 1.0;
-    float z = 1.0 - dot(uv2, uv2);
-    float3 n = float3(uv2, z);
-    float mask = step(1.0, length(uv2));
-    return mix(n, float3(0, 0, 1), mask);
-}
-
 float2 transformGradient(float2 basis, float h){
     float2 m1 = dfdx(basis), m2 = dfdy(basis);
     float2x2 adjoint = float2x2(m2.y, -m2.x, -m1.y, m1.x);
@@ -102,16 +96,22 @@ float2 transformGradient(float2 basis, float h){
     return float2(dfdx(h), dfdy(h))*adjoint/det;
 }
 
+// MARK: - Normals
+
 float3 bumpMap(float2 uv, float height, half4 col){
     float value = height * col.r;
     float2 gradient = transformGradient(uv, value);
     return float3(gradient, 1.0 - dot(gradient, gradient));
 }
 
+// MARK: - Shader
+
 [[ stitchable ]]
 half4 leather(float2 position, float4 bounds, half4 color, float time) {
     float2 p = position / max(bounds.z, bounds.w);
     float2 coords = position / bounds.zw;
+
+    // create the base grain
 
     float3 c = voronoi(30.0 * p);
     float3 d = voronoi(20.0 * p);
@@ -133,9 +133,11 @@ half4 leather(float2 position, float4 bounds, half4 color, float time) {
     col += min(col, grain);
 
     half4 edge = half4(half3(smoothstep( 0.04, 0.17, c.z)), 1.0) * 0.6;
-    half4 edge2 = half4(half3(smoothstep( 0.04, 0.17, d.z)), 1.0) + 0.6;
-    edge *= edge2;
+    half4 secondaryEdge = half4(half3(smoothstep( 0.04, 0.17, d.z)), 1.0) + 0.6;
+    edge *= secondaryEdge;
     col = col * edge;
+
+    // create some ambient color
 
     float3 ambient = float3(0.01, 0.01, 0.01);
     Vibe vibe;
@@ -148,13 +150,19 @@ half4 leather(float2 position, float4 bounds, half4 color, float time) {
     float3 dir = float3(1.0, 1.0, 0.0);
     vibe = fourierAdd(dir, float3(0.2, 0.2, 0.2), vibe);
 
+    // add an animated light source
+
     float2 light = float2(sin(time * 0.6), 0.1);
     float2 delta = coords - light;
     float3 lightInt = float3(delta, 0.2);
     float3 lightColor = float3(color.xyz) * 0.4 * max(0.0, 0.7 - length(delta) / 2.75);
     vibe = fourierAdd(lightInt, lightColor, vibe);
 
+    // calculate the normals
     float3 n = bumpMap(coords, 0.014, col * 0.15);
+
+    // apply the magic
+    
     col.xyz = half3(fourierApply(n, vibe));
 
     return col;

@@ -57,13 +57,13 @@
 		FBA8E65A2B5F1B0B00F087AE /* Wallpaper */ = {
 			isa = PBXGroup;
 			children = (
+				FB1E1AC82B6065B3002DCAE0 /* Leather.metal */,
 				FBA8E66D2B5F1CA700F087AE /* GrainGradient.metal */,
 				FBA8E65B2B5F1B0B00F087AE /* WallpaperApp.swift */,
 				FBA8E65D2B5F1B0B00F087AE /* ContentView.swift */,
 				FBA8E65F2B5F1B0D00F087AE /* Assets.xcassets */,
 				FBA8E6612B5F1B0D00F087AE /* Preview Content */,
 				FBA8E6692B5F1B2000F087AE /* BackgroundMaterial.swift */,
-				FB1E1AC82B6065B3002DCAE0 /* Leather.metal */,
 			);
 			path = Wallpaper;
 			sourceTree = "<group>";
