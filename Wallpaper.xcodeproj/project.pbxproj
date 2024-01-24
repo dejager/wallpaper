@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB1E1AC92B6065B3002DCAE0 /* Leather.metal in Sources */ = {isa = PBXBuildFile; fileRef = FB1E1AC82B6065B3002DCAE0 /* Leather.metal */; };
 		FBA8E65C2B5F1B0B00F087AE /* WallpaperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8E65B2B5F1B0B00F087AE /* WallpaperApp.swift */; };
 		FBA8E65E2B5F1B0B00F087AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA8E65D2B5F1B0B00F087AE /* ContentView.swift */; };
 		FBA8E6602B5F1B0D00F087AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA8E65F2B5F1B0D00F087AE /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB1E1AC82B6065B3002DCAE0 /* Leather.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Leather.metal; sourceTree = "<group>"; };
 		FBA8E6582B5F1B0B00F087AE /* Wallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA8E65B2B5F1B0B00F087AE /* WallpaperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperApp.swift; sourceTree = "<group>"; };
 		FBA8E65D2B5F1B0B00F087AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				FBA8E65F2B5F1B0D00F087AE /* Assets.xcassets */,
 				FBA8E6612B5F1B0D00F087AE /* Preview Content */,
 				FBA8E6692B5F1B2000F087AE /* BackgroundMaterial.swift */,
+				FB1E1AC82B6065B3002DCAE0 /* Leather.metal */,
 			);
 			path = Wallpaper;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA8E66E2B5F1CA700F087AE /* GrainGradient.metal in Sources */,
+				FB1E1AC92B6065B3002DCAE0 /* Leather.metal in Sources */,
 				FBA8E65E2B5F1B0B00F087AE /* ContentView.swift in Sources */,
 				FBA8E66A2B5F1B2000F087AE /* BackgroundMaterial.swift in Sources */,
 				FBA8E65C2B5F1B0B00F087AE /* WallpaperApp.swift in Sources */,

@@ -69,7 +69,7 @@ half4 grainGradient(float2 position, float4 bounds, float size, float time, devi
     const int gridLastIndex = count - 1;
 
     float2 coords = position / bounds.zw;
-    half4 result = gridInterpolation(coords, colors, float4(gridRange), gridSize, gridLastIndex, time * 0.15);
+    half4 result = gridInterpolation(coords, colors, float4(gridRange), gridSize, gridLastIndex, time * 0.20);
 
     float strength = 16.0;
 
